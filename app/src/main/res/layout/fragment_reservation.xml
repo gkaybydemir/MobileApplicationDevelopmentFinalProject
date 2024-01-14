@@ -8,7 +8,9 @@
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     android:paddingTop="16dp"
-    android:paddingBottom="16dp">
+    android:paddingBottom="16dp"
+    android:background="#DDBAAB"
+    android:backgroundTint="#DDBAAB">
 
     <!-- Person Count Section -->
     <LinearLayout
@@ -102,13 +104,23 @@
             android:layout_marginStart="30dp"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/price_counter"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Total Price:"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:layout_gravity="center"/>
+
     <Button
         android:id="@+id/accept_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"
-        android:text="I ACCEPT">
+        android:layout_gravity="center"
+        android:text="I ACCEPT"
+        android:backgroundTint="#15371B">
     </Button>
 
 </LinearLayout>

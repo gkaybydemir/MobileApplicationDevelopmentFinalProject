@@ -1,6 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#DDBAAB"
+    android:backgroundTint="#DDBAAB">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -67,32 +70,36 @@
                         android:id="@+id/campingPlaceToiletCheckBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
                         android:text="Toilet"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <!-- Checkbox 2 -->
                     <CheckBox
                         android:id="@+id/campingPlaceWifiCheckBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
                         android:text="Wi-fi"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <!-- Checkbox 3 -->
                     <CheckBox
                         android:id="@+id/campingPlaceShowerCheckBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
                         android:text="Shower"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <!-- Checkbox 4 -->
                     <CheckBox
                         android:id="@+id/campingPlaceWaterCheckBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
                         android:text="Water"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <!-- Right Side Checkboxes -->
@@ -107,50 +114,57 @@
                         android:id="@+id/campingPlaceMarketCheckBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
                         android:text="Market"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        />
 
                     <!-- Checkbox 6 -->
                     <CheckBox
                         android:id="@+id/campingPlaceParkingAreaCheckBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
                         android:text="Parking Area "
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <!-- Checkbox 7 -->
                     <CheckBox
                         android:id="@+id/campingPlaceBeachCheckBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
+                        android:checked="false"
                         android:text="Beach"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <!-- Checkbox 8 -->
                     <CheckBox
                         android:id="@+id/campingPlaceElectricityCheckBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:buttonTint="#000000"
                         android:text="Electricity"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- TextView and ImageView in Horizontal Layout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal">
 
                 <!-- Bold Text -->
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/campingPlaceCapacityText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical"
                     android:text="Bold Text"
-                    android:textSize="16sp"
+                    android:textSize="24dp"
                     android:textStyle="bold" />
 
                 <!-- ImageView -->
@@ -161,7 +175,8 @@
                     android:layout_gravity="right"
                     android:layout_marginStart="8dp"
                     android:gravity="end|center_vertical"
-                    android:src="@mipmap/ic_location" />
+                    android:src="@drawable/ic_location"
+                    />
             </LinearLayout>
 
             <!-- Reservation Button -->
@@ -171,7 +186,8 @@
                 android:layout_height="wrap_content"
                 android:text="Reservation"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:backgroundTint="#15371B"/>
         </LinearLayout>
     </ScrollView>
 

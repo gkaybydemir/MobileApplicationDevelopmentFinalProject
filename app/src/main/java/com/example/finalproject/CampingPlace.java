@@ -12,7 +12,7 @@ import android.os.Parcelable;
 public class CampingPlace implements Parcelable {
 
     private boolean beach;
-    private String capacityMax;
+    private HashMap<String, String> capacity;
     private String instantNumber;
     private String description;
     private boolean electricity;
@@ -24,10 +24,11 @@ public class CampingPlace implements Parcelable {
     private boolean parkingArea;
     private String price;
     private boolean shower;
-    private Map<String, String> tent;
+    private HashMap<String, String> tent;
     private boolean toilet;
     private boolean water;
     private boolean wifi;
+    private String placeKey;
 
     public CampingPlace(String name, String price, String location) {
         this.name = name;
@@ -37,7 +38,7 @@ public class CampingPlace implements Parcelable {
 
     protected CampingPlace(Parcel in) {
         beach = in.readByte() != 0;
-        capacityMax = in.readString();
+        capacity = new HashMap<>();
         instantNumber = in.readString();
         description = in.readString();
         electricity = in.readByte() != 0;
@@ -56,6 +57,15 @@ public class CampingPlace implements Parcelable {
         wifi = in.readByte() != 0;
     }
 
+
+    public String getPlaceKey() {
+        return placeKey;
+    }
+
+    public void setPlaceKey(String placeKey) {
+        this.placeKey = placeKey;
+    }
+
     public boolean isBeach() {
         return beach;
     }
@@ -64,21 +74,23 @@ public class CampingPlace implements Parcelable {
         this.beach = beach;
     }
 
-    public String getCapacityMax() {
-        return capacityMax;
+    public HashMap<String, String> getTent() {
+        return (HashMap<String, String>) tent;
     }
 
-    public void setCapacityMax(String capacityMax) {
-        this.capacityMax = capacityMax;
+    public void setTent(HashMap<String, String> tent) {
+        this.tent = tent;
     }
 
-    public String getInstantNumber() {
-        return instantNumber;
+    public HashMap<String, String> getCapacity() {
+        System.out.println((HashMap<String, String>) capacity);
+        return (HashMap<String, String>) capacity;
     }
 
-    public void setInstantNumber(String instantNumber) {
-        this.instantNumber = instantNumber;
+    public void setCapacity(HashMap<String, String> capacity) {
+        this.capacity = capacity;
     }
+
 
     public String getDescription() {
         return description;
@@ -160,14 +172,6 @@ public class CampingPlace implements Parcelable {
         this.shower = shower;
     }
 
-    public Map<String, String> getTent() {
-        return tent;
-    }
-
-    public void setTent(Map<String, String> tent) {
-        this.tent = tent;
-    }
-
     public boolean isToilet() {
         return toilet;
     }
@@ -213,7 +217,6 @@ public class CampingPlace implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeByte((byte) (beach ? 1 : 0));
-        dest.writeString(capacityMax);
         dest.writeString(instantNumber);
         dest.writeString(description);
         dest.writeByte((byte) (electricity ? 1 : 0));

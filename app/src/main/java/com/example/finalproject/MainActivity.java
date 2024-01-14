@@ -2,6 +2,8 @@ package com.example.finalproject;
 // MainActivity.java
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements CityAdapter.OnIte
         getSupportActionBar().setTitle("CampAnya");
         setContentView(R.layout.welcome_layout);
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable((getResources().getColor(R.color.menu_color))));
         actionBar.hide();
 
         new Handler().postDelayed(new Runnable() {

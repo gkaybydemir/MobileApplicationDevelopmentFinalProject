@@ -8,7 +8,9 @@
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     android:paddingTop="16dp"
-    android:paddingBottom="16dp">
+    android:paddingBottom="16dp"
+    android:background="#DDBAAB"
+    android:backgroundTint="#DDBAAB">
 
     <!-- Theme Section -->
     <LinearLayout
@@ -22,7 +24,8 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Theme"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:textSize="18dp"/>
 
         <Spinner
             android:id="@+id/spinnerTheme"
@@ -44,7 +47,8 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Language"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:textSize="18dp"/>
 
         <Spinner
             android:id="@+id/spinnerLanguage"
@@ -66,7 +70,8 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Country"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:textSize="18dp"/>
 
         <Spinner
             android:id="@+id/spinnerCountry"

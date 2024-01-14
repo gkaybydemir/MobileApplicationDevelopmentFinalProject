@@ -55,7 +55,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 register();
-                openLoginPage();
+
             }
         });
     }
@@ -71,10 +71,31 @@ public class RegisterFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-                        editTextBirthDate.setText(selectedDate);
+
+                        // Check the birth date
+                        if (isUnder18(year, month, dayOfMonth)) {
+                            // Show a Toast message if under 18
+                            Toast.makeText(requireContext(), "Registration not allowed for individuals under 18", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // If 18 or older, set the birth date in the editTextBirthDate field
+                            editTextBirthDate.setText(selectedDate);
+                        }
                     }
                 }, year, month, day);
         datePickerDialog.show();
+    }
+
+    // Method for checking if the birth date is under 18
+    private boolean isUnder18(int year, int month, int day) {
+        Calendar birthDate = Calendar.getInstance();
+        birthDate.set(year, month, day);
+
+        Calendar today = Calendar.getInstance();
+
+        // Return true if under 18, false otherwise
+        return today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR) < 18 ||
+                (today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR) == 18 &&
+                        today.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR));
     }
 
     public void register() {
@@ -85,31 +106,40 @@ public class RegisterFragment extends Fragment {
         String password = editTextPassword.getText().toString().trim();
         String birthDate = editTextBirthDate.getText().toString().trim();
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (name.isEmpty() || surname.isEmpty() || telephone.isEmpty() ||
+                email.isEmpty() || password.isEmpty() || birthDate.isEmpty()) {
+            // Toast mesajı gönder
+            Toast.makeText(getActivity(), "Please fill the all blanks", Toast.LENGTH_SHORT).show();
 
-        Map<String, Object> user = new HashMap<>();
-        user.put("name", name);
-        user.put("surname", surname);
-        user.put("telephone", telephone);
-        user.put("mail", email);
-        user.put("password", password);
-        user.put("birthdate", birthDate);
+        }
+        else{
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getActivity(), "User added to Firestore", Toast.LENGTH_SHORT).show();
-                        openLoginPage();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), "Error adding user to Firestore", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            Map<String, Object> user = new HashMap<>();
+            user.put("name", name);
+            user.put("surname", surname);
+            user.put("telephone", telephone);
+            user.put("mail", email);
+            user.put("password", password);
+            user.put("birthdate", birthDate);
+
+            db.collection("users")
+                    .add(user)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(getActivity(), "User added to Firestore", Toast.LENGTH_SHORT).show();
+                            openLoginPage();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Error adding user to Firestore", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+
     }
 
     private void openLoginPage() {

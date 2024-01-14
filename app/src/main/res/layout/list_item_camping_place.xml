@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#DDBAAB"
+    android:backgroundTint="#DDBAAB">
 
     <ImageView
         android:id="@+id/campingPlaceImageView"
@@ -24,22 +26,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Camping Place Name"
-            android:textSize="16sp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/campingPlacePriceTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Price: $50/night"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="#55514B"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/campingPlaceLocationTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Location: Somewhere"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="#55514B"
+            android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>

@@ -66,7 +66,7 @@ public class CampingPlaceAdapter extends RecyclerView.Adapter<CampingPlaceAdapte
         public void bind(CampingPlace campingPlace) {
             Picasso.with(campingPlaceImageView.getContext()).load(campingPlace.getPhotoLink()).into(campingPlaceImageView);
             campingPlaceNameTextView.setText(campingPlace.getName());
-            campingPlacePriceTextView.setText("Price: " + campingPlace.getPrice());
+            campingPlacePriceTextView.setText("Price: " + campingPlace.getPrice() + "₺");
             campingPlaceLocationTextView.setText("Location: " + campingPlace.getLocation());
         }
     }

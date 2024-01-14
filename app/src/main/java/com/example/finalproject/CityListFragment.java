@@ -20,6 +20,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CityListFragment extends Fragment {
 
@@ -37,30 +38,32 @@ public class CityListFragment extends Fragment {
     }
 
     private void setupCityRecyclerView() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference citiesCollection = db.collection("cities");
         cities = new ArrayList<>();
-        citiesCollection.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String cityName = document.getString("city_name");
-                    if (cityName != null) {
-                        System.out.println(cityName);
-                        cities.add(new City(cityName));
-                    }
-                }
-                CityAdapter cityAdapter = new CityAdapter(cities, new CityAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(City city) {
-                        loadCampingListFragment(city);
-                    }
-                });
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference citiesRef = db.collection("cities");
 
-                cityRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                cityRecyclerView.setAdapter(cityAdapter);
-            } else {
-                Log.d("TAG", "Error getting documents: ", task.getException());
+        citiesRef.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                // Get the 'cities' document data
+                Map<String, Object> cityData = document.getData();
+                String cityName = (String) cityData.get("city_name");
+
+                if (cityName != null) {
+                    System.out.println(cityName);
+                    cities.add(new City(cityName));
+                }
             }
+            CityAdapter cityAdapter = new CityAdapter(cities, new CityAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(City city) {
+                    loadCampingListFragment(city);
+                }
+            });
+
+            cityRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            cityRecyclerView.setAdapter(cityAdapter);
+        }).addOnFailureListener(e -> {
+            Log.d("TAG", "Error getting documents: " + e.getMessage());
         });
     }
 

@@ -45,6 +45,7 @@ public class CampingDetailsFragment extends Fragment {
         CheckBox campingPlaceBeachCheckBox = view.findViewById(R.id.campingPlaceBeachCheckBox);
         CheckBox campingPlaceElectricityCheckBox = view.findViewById(R.id.campingPlaceElectricityCheckBox);
         ImageView campingPlaceMapLinkImageView = view.findViewById(R.id.campingPlaceMapLinkImageView);
+        TextView capacity_text = view.findViewById(R.id.campingPlaceCapacityText);
 
 
         if (getArguments() != null) {
@@ -52,7 +53,7 @@ public class CampingDetailsFragment extends Fragment {
             if (campingPlace != null) {
                 Picasso.with(campingPlaceImageView.getContext()).load(campingPlace.getPhotoLink()).into(campingPlaceImageView);
                 campingPlaceNameTextView.setText(campingPlace.getName());
-                campingPlacePriceTextView.setText("Price: " + campingPlace.getPrice());
+                campingPlacePriceTextView.setText("Price: " + campingPlace.getPrice() + "₺");
                 campingPlaceLocationTextView.setText("Location: " + campingPlace.getLocation());
                 campingPlaceDescription.setText(campingPlace.getDescription());
                 CheckBox[] checkBoxes = {
@@ -80,6 +81,8 @@ public class CampingDetailsFragment extends Fragment {
                     checkBoxes[i].setClickable(false);
                 }
 
+                capacity_text.setText("Capacity " + campingPlace.getCapacity().get("instant_number") +"/" + campingPlace.getCapacity().get("capacity_max"));
+
                 campingPlaceMapLinkImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -96,7 +99,7 @@ public class CampingDetailsFragment extends Fragment {
         reservationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openReservationFragment();
+                openReservationFragment(campingPlace);
             }
         });;
 
@@ -134,11 +137,23 @@ public class CampingDetailsFragment extends Fragment {
     }
 
 
-    private void openReservationFragment() {
+    private void openReservationFragment(CampingPlace campingPlace) {
         // Create an instance of the ReservationFragment
+        ReservationFragment reservationFragment = new ReservationFragment();
+
+        // Create a Bundle to pass parameters
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("campingPlace", campingPlace);
+
+
+        // Set the arguments to the Fragment
+        reservationFragment.setArguments(bundle);
+
+        // Perform the FragmentTransaction
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, new ReservationFragment());
+        transaction.replace(R.id.fragment_container, reservationFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 }

@@ -106,12 +106,19 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-                        editTextBirthDate.setText(selectedDate);
+
+                        // Check the birth date
+                        if (isUnder18(year, month, dayOfMonth)) {
+                            // Show a Toast message if under 18
+                            Toast.makeText(requireContext(), "Update is not allowed for individuals under 18", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // If 18 or older, set the birth date in the editTextBirthDate field
+                            editTextBirthDate.setText(selectedDate);
+                        }
                     }
                 }, year, month, day);
         datePickerDialog.show();
     }
-
 
     public void updateProfile() {
         String newName = editTextName.getText().toString().trim();
@@ -178,6 +185,18 @@ public class ProfileFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
         Toast.makeText(getActivity(), "Logged out!", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean isUnder18(int year, int month, int day) {
+        Calendar birthDate = Calendar.getInstance();
+        birthDate.set(year, month, day);
+
+        Calendar today = Calendar.getInstance();
+
+        // Return true if under 18, false otherwise
+        return today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR) < 18 ||
+                (today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR) == 18 &&
+                        today.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR));
     }
 
 }

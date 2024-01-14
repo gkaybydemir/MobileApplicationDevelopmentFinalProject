@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +55,7 @@ public class CampingListFragment extends Fragment {
                     Map<String, Object> placeData = (Map<String, Object>) cityData.get(placeKey);
 
                     if (placeData != null) {
+
                         // Extract name, price, and location from placeData
 
                         String name = (String) placeData.get("name");
@@ -63,6 +65,7 @@ public class CampingListFragment extends Fragment {
                         // Create CampingPlace object
                         CampingPlace campingPlace = new CampingPlace(name, price, location);
 
+                        campingPlace.setPlaceKey(placeKey);
                         campingPlace.setBeach((boolean) placeData.get("beach"));
                         campingPlace.setDescription((String) placeData.get("description"));
                         campingPlace.setElectricity((boolean) placeData.get("electricity"));
@@ -76,7 +79,19 @@ public class CampingListFragment extends Fragment {
                         campingPlace.setWater((boolean) placeData.get("water"));
                         campingPlace.setWifi((boolean) placeData.get("wifi"));
 
-                        //tent ve capacity eklenmedi
+                        HashMap<String, String > tent = (HashMap<String, String>) placeData.get("tent");
+                        campingPlace.setTent(tent);
+
+                        tent.put("no_tent", tent.get("no_tent"));
+                        tent.put("two_three", tent.get("two_three_tent"));
+                        tent.put("four_five", tent.get("four_five_tent"));
+
+
+                        HashMap<String, String > capacity = (HashMap<String, String>) placeData.get("capacity");
+                        campingPlace.setCapacity(capacity);
+
+                        capacity.put("capacity_max", capacity.get("capacity_max"));
+                        capacity.put("instant_number", capacity.get("instant_number"));
 
                         campingPlaces.add(campingPlace);
                     }
